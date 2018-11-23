@@ -3,8 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\BelongsToAccountTrait;
 
 class Message extends Model {
+
+    use BelongsToAccountTrait;
 
     protected $fillable = ['receiver', 'date', 'message','user_id'];
     
@@ -12,8 +15,8 @@ class Message extends Model {
     {
     	return $this->belongsTo(User::class);
     }
-    public function contacts()
+    public function messaging()
     {
-    	return $this->hasMany(Contact::class);
+    	return $this->morphTo();
     }
 }

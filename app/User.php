@@ -7,18 +7,22 @@ use Laravel\Lumen\Auth\Authorizable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use App\Traits\BelongsToAccountTrait;
+use Illuminate\Database\Eloquent\Builder;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable, Authorizable;
 
+
+    use BelongsToAccountTrait;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email'
+        'name', 'email', 'account_id'
     ];
 
     /**
@@ -30,8 +34,15 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'password', 'api_token'
     ];
 
-    public function accounts()
+    public static function boot()
     {
-        return $this->hasMany(Account::class);
-    }
+        parent::boot();
+
+        static::addGlobalScope('filter', function (Builder $builder) {
+
+            $builder->filterBy('account_id');
+        });
+    }   
+
+    
 }
