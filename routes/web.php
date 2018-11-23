@@ -17,11 +17,11 @@ $router->get('/', function () use ($router) {
 
 $api = router('Dingo\Api\Routing\Router');
 
-$api->version('v1', function ($api) {
+$api->version('v1', ['middleware' => 'api.auth'], function ($api) {
 
     $api->resources([
 
-        'auths' => 'AuthController',
+        '/' => 'AuthController',
         'accounts' => 'AccountController',
         'contacts' => 'ContactController',
         'meetings' => 'MeetingController',
