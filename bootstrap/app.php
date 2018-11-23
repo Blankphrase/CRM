@@ -35,6 +35,8 @@ if (!class_exists('DingoRoute')) {
 
 $app->withEloquent();
 
+$app->configure('mail');
+
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -56,6 +58,12 @@ $app->singleton(
     App\Console\Kernel::class
 );
 
+
+$app->register(Illuminate\Notifications\NotificationServiceProvider::class);
+$app->withFacades(true, [
+ ‘Illuminate\Support\Facades\Notification’ => ‘Notification’,
+]);
+$app->alias(‘mailer’, \Illuminate\Contracts\Mail\Mailer::class);
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -86,10 +94,11 @@ $app->routeMiddleware([
 |
 */
 
+$app->register(\Illuminate\Mail\MailServiceProvider::class);
+$app->register(PhanAn\CascadingConfig\CascadingConfigServiceProvider::class);
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
-
 $app->register(Dingo\Api\Provider\LumenServiceProvider::class);
 /*
 
