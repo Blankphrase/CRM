@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
         factory(App\Contact::class, 50)->create()->each(function ($contact) {
             $contact->opportunities()->save(factory(App\Opportunity::class)->make());
         });
+        
+        factory(App\Staff::class, 50)->create();
 
     }
 

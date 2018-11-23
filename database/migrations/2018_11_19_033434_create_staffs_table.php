@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAccountUsersTable extends Migration
+class CreateStaffsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAccountUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('account_users', function (Blueprint $table) {
+        Schema::create('staffs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('account_id');
@@ -29,6 +29,6 @@ class CreateAccountUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('account_users');
+        Schema::dropIfExists('staffs');
     }
 }
