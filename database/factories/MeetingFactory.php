@@ -5,11 +5,11 @@ $factory->define(Meeting::class, function ($faker) {
         'date'=>$faker->date,
         'location'=>$faker->name,
         'status'=>str_random(10),
-        'user_id' => function () {
-            return factory(App\User::class)->create()->id;
+        'account_id' => function () {
+            return factory(App\Account::class)->create()->id;
         },
-        'user_type' => function (array $meeting) {
-            return App\User::find($meeting['user_id'])->type;
+        'account_type' => function (array $meeting) {
+            return App\Account::find($meeting['account_id'])->type;
         }
     ];
 });
