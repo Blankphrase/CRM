@@ -22,10 +22,13 @@ $api->version('v1', ['middleware' => 'api.auth'], function ($api) {
     $api->resources([
 
         '/' => 'AuthController',
-        'accounts' => 'AccountController',
+        'users' => 'UserController',
         'contacts' => 'ContactController',
         'meetings' => 'MeetingController',
         'messages' => 'MessageController'
-    ]);
+    ])->only(['index', 'show', 'store', 'update', 'destroy']);
+
+    $api->resource('accounts', 'AccountController')->only('show');
+
 
 });
