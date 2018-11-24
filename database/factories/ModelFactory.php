@@ -14,36 +14,38 @@
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name'     => $faker->name,
+        'account_id' => factory(App\Account::class)->create()->id,
         'email'    => $faker->unique()->safeEmail,
-        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-        'api_token' => str_random(10),
+        'email_verified_at' => \App\Helpers\DateHelper::parseDateTime($faker->dateTimeThisCentury()),
+        'password' => app('hash')->make('password'),
+        'remember_token' => str_random(10),
     ];
 });
 
-$factory->define(Account::class, function ($faker) {
+
+$factory->define(App\Account::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
+        'api_key' => str_random(30),
     ];
 });
 
-$factory->define(Contact::class, function ($faker) {
+
+$factory->define(App\Contact::class, function (Faker\Generator $faker) {
     return [
+        'account_id' => factory(App\Account::class)->create()->id,
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'phone' =>$faker->phone,
         'address'=>$faker->address,
-        'idnumber'=>str_random(10),
-        'account_id' => function () {
-            return factory(App\Account::class)->create()->id;
-        },
-        'account_type' => function (array $contact) {
-            return App\Account::find($contact['account_id'])->type;
-        }
+        'idnumber'=>str_random(10)
     ];
 });
 
-$factory->define(Opportunity::class, function ($faker) {
+
+$factory->define(App\Opportunity::class, function (Faker\Generator $faker) {
     return [
+        'account_id' => factory(App\Account::class)->create()->id,
         'name' => $faker->name,
         'status'=>str_random(10),
         'description'=>$faker->paragraphs(rand(1,2), true),
@@ -56,30 +58,20 @@ $factory->define(Opportunity::class, function ($faker) {
     ];
 });
 
-$factory->define(Meeting::class, function ($faker) {
+$factory->define(App\Meeting::class, function (Faker\Generator $faker) {
     return [
+        'account_id' => factory(App\Account::class)->create()->id,
         'date'=>$faker->date,
         'location'=>$faker->name,
         'status'=>str_random(10),
-        'account_id' => function () {
-            return factory(App\Account::class)->create()->id;
-        },
-        'account_type' => function (array $meeting) {
-            return App\Account::find($meeting['account_id'])->type;
-        }
     ];
 });
 
-$factory->define(Message::class, function ($faker) {
+$factory->define(App\Message::class, function (Faker\Generator $faker) {
     return [
+        'account_id' => factory(App\Account::class)->create()->id,
         'date'=>$faker->date,
         'message'=>$faker->paragraphs(rand(1,2), true),
         'receiver'=>$faker->name,
-        'account_id' => function () {
-            return factory(App\Account::class)->create()->id;
-        },
-        'account_type' => function (array $message) {
-            return App\Account::find($message['account_id'])->type;
-        }
     ];
 });

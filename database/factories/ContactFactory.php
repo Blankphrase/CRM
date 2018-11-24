@@ -1,17 +1,12 @@
 <?php
 
-$factory->define(Contact::class, function ($faker) {
+$factory->define(App\Contact::class, function (Faker\Generator $faker) {
     return [
+        'account_id' => factory(App\Account::class)->create()->id,
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'phone' =>$faker->phone,
         'address'=>$faker->address,
-        'idnumber'=>str_random(10),
-        'account_id' => function () {
-            return factory(App\Account::class)->create()->id;
-        },
-        'account_type' => function (array $contact) {
-            return App\Account::find($contact['account_id'])->type;
-        }
+        'idnumber'=>str_random(10)
     ];
 });

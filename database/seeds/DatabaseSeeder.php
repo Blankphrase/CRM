@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         });
         
         factory(App\Staff::class, 50)->create();
+        
 
     }
 

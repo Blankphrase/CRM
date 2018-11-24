@@ -1,7 +1,8 @@
 <?php
 
-$factory->define(Opportunity::class, function ($faker) {
+$factory->define(App\Opportunity::class, function (Faker\Generator $faker) {
     return [
+        'account_id' => factory(App\Account::class)->create()->id,
         'name' => $faker->name,
         'status'=>str_random(10),
         'description'=>$faker->paragraphs(rand(1,2), true),
