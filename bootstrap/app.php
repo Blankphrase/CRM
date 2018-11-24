@@ -94,6 +94,8 @@ $app->routeMiddleware([
 |
 */
 
+
+$app->register(\App\Providers\MailServiceProvider::class);
 $app->register(\Illuminate\Mail\MailServiceProvider::class);
 $app->register(PhanAn\CascadingConfig\CascadingConfigServiceProvider::class);
 $app->register(App\Providers\AppServiceProvider::class);
