@@ -18,5 +18,8 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\AcceptMeetingEvent' => [
             'App\Listeners\AcceptMeetingListener',
         ],
+        \Illuminate\Auth\Events\Registered::class => [
+            \Illuminate\Auth\Listeners\SendEmailVerificationNotification::class,
+        ],
     ];
 }
