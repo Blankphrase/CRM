@@ -1,10 +1,8 @@
 <?php
-
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
-class CreateContactsTable extends Migration
+class CreateNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +11,17 @@ class CreateContactsTable extends Migration
      */
     public function up()
     {
-        Schema::create('contacts', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('account_id');
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone');
+            $table->integer('contact_id');
+            $table->enum('for', ['reminder']);
+            $table->enum('how', ['email']);
             $table->string('address');
-            $table->string('idnumber');
-            $table->softDeletes();
+            $table->longText('content');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *
@@ -33,8 +29,6 @@ class CreateContactsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contacts');
+        //
     }
 }
-
-

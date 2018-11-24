@@ -18,6 +18,7 @@ class CreateStaffsTable extends Migration
             $table->integer('user_id');
             $table->integer('account_id');
             $table->boolean('staff');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -19,6 +19,7 @@ class CreateOpportunitiesTable extends Migration
             $table->string('name');
             $table->string('status');
             $table->string('description');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

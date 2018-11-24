@@ -18,7 +18,8 @@ class CreateMeetingsTable extends Migration
             $table->string('account_id');
             $table->date('date');
             $table->string('location');
-            $table->string('status');                        
+            $table->string('status');
+            $table->softDeletes();                        
             $table->timestamps();
         });
     }
