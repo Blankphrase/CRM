@@ -2,23 +2,23 @@
 
 namespace App\Mail;
 
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use App\AccountInvitation;
 use Illuminate\Queue\SerializesModels;
 
-class InviteMail extends Mailable
+class NewUserAlert extends Mailable
 {
     use Queueable, SerializesModels;
-    protected $invitation;
+    protected $user;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Invitation $invitation)
+    public function __construct(User $user)
     {
-        $this->invitation = $invitation;
+        $this->user = $user;
     }
     /**
      * Build the message.
@@ -27,10 +27,10 @@ class InviteMail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.invitation.index')
-                    ->subject('You are invited to join...')
+        return $this->text('emails.registration.alert')
+                    ->subject('New registration: '.$this->user->first_name.' '.$this->user->last_name)
                     ->with([
-                        'invitation' => $this->invitation,
+                        'user' => $this->user,
                     ]);
     }
 }
