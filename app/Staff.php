@@ -18,7 +18,7 @@ class Staff extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'org_id', 'staff'
+        'user_id', 'account_id', 'staff'
     ];
 
     /**
